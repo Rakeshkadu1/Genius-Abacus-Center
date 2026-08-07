@@ -406,8 +406,13 @@ function updateDisplay() {
 function clearAbacus() {
 
     columns = 7;
-    document.getElementById('rodCount').value = 7;
+
+    document.getElementById(
+        'rodCount'
+    ).value = 7;
+
     initState();
+
     buildAbacus();
 }
 
@@ -433,8 +438,8 @@ function handleRodCountChange() {
     }
 
 
-    if (newCount > 15) {
-        newCount = 15;
+    if (newCount > 17) {
+        newCount = 17;
     }
 
 
