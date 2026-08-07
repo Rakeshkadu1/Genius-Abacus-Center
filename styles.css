@@ -682,3 +682,51 @@ body {
 .bead.color-blue {
     background: linear-gradient(145deg, #4ba3ff, #1976d2, #1058a5);
 }
+/* Android / Mobile - fit all 17 rods */
+@media (max-width: 600px) {
+
+    .abacus-frame {
+        width: 100%;
+        overflow: hidden;
+        padding: 8px 2px;
+    }
+
+    .abacus {
+        width: 100%;
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    .upper-section-container,
+    .lower-section-container,
+    .divider-bar {
+        width: 100%;
+        gap: 0;
+    }
+
+    .upper-column,
+    .lower-column,
+    .divider-marker {
+        flex: 1 1 0;
+        min-width: 0;
+    }
+
+    .bead {
+        width: clamp(18px, 5vw, 32px);
+        height: clamp(18px, 5vw, 32px);
+    }
+
+    .rod {
+        width: 3px;
+    }
+}
+@media (max-width: 600px) {
+    .bead {
+        width: 17px;
+        height: 17px;
+    }
+
+    .rod {
+        width: 2px;
+    }
+}
