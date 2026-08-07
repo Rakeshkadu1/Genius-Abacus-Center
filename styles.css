@@ -1,604 +1,684 @@
-// Virtual Abacus - Soroban Style
-// Upper bead (heaven) = 5
-// Lower beads (earth) = 1 each
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-let columns = 17;
+body {
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
 
-// ========================================
-// COLOR SEQUENCE
-// Same color for upper + lower beads
-// White -> Green -> Pink -> Yellow -> Red -> Blue
-// ========================================
+/* ============ NAVIGATION ============ */
+.navbar {
+    background: #fff;
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
 
-const beadColors = [
-    '#FFFFFF', // White
-    '#18B866', // Green
-    '#F080B8', // Pink
-    '#F5D000', // Yellow
-    '#D92B20', // Red
-    '#1976D2'  // Blue
-];
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
+.logo {
+    display: flex;
+    align-items: center;
+}
 
-// ========================================
-// STATE
-// ========================================
+.logo img {
+    height: 45px;
+    width: auto;
+}
 
-let state = [];
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+    align-items: center;
+}
 
-function initState() {
+.nav-menu li a {
+    text-decoration: none;
+    color: #2c3e50;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
 
-    state = [];
+.nav-menu li a:hover {
+    color: #e67e22;
+}
 
-    for (let i = 0; i < columns; i++) {
+.arrow {
+    font-size: 0.7rem;
+    margin-left: 3px;
+}
 
-        state.push({
-            upper: 0,
-            lower: 0
-        });
+.nav-buttons {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
 
+.btn {
+    text-decoration: none;
+    padding: 10px 22px;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.btn-outline {
+    color: #2c3e50;
+    border: 2px solid #2c3e50;
+    background: transparent;
+}
+
+.btn-outline:hover {
+    background: #2c3e50;
+    color: #fff;
+}
+
+.btn-primary {
+    background: #e67e22;
+    color: #fff;
+    border: 2px solid #e67e22;
+}
+
+.btn-primary:hover {
+    background: #d35400;
+    border-color: #d35400;
+}
+
+/* Mobile Menu Button */
+.mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.mobile-menu-btn span {
+    width: 25px;
+    height: 3px;
+    background: #2c3e50;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+
+/* ============ HERO SECTION ============ */
+.hero {
+    position: relative;
+    padding: 60px 20px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #abe587 0%, #c9f387 30%, #bbea8f 60%);
+    z-index: -1;
+}
+
+.hero-bg::before {
+    content: '';
+    position: absolute;
+    left: -100px;
+    top: 0;
+    width: 400px;
+    height: 100%;
+    background: linear-gradient(180deg, #7ed957 0%, #a5e87a 50%, #c9f387 100%);
+    opacity: 0.5;
+    transform: skewX(-15deg);
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.15rem;
+    color: #555;
+    line-height: 1.7;
+}
+
+/* ============ ABACUS SECTION ============ */
+.abacus-section {
+    padding: 40px 20px 80px;
+    text-align: center;
+     background: linear-gradient(135deg, #b18287 0%, #d8e8bf 30%, #d1e5bf 60%);
+}
+
+.controls {
+    margin-bottom: 30px;
+}
+
+.instruction {
+    color: #444;
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+.controls-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.controls-row label {
+    color: #333;
+    font-weight: 500;
+}
+
+#rodCount {
+    width: 60px;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-align: center;
+    font-family: inherit;
+}
+
+#rodCount:focus {
+    outline: none;
+    border-color: #e67e22;
+}
+
+.clear-btn {
+    padding: 8px 24px;
+    font-size: 1rem;
+    color: #000;
+    background: #fff;
+    border: 2px solid #e67e22;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    font-weight: 500;
+    font-weight: 500;
+}
+
+.clear-btn:hover {
+    background: #7ae622;
+    color: #fff;
+}
+
+/* ============ ABACUS FRAME ============ */
+.abacus-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.abacus-frame {
+    background: #7d6b5a;
+    border-radius: 4px;
+    padding: 12px;
+    display: inline-block;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.abacus {
+    position: relative;
+}
+
+/* Upper section container */
+.upper-section-container {
+    background: #aeb2c3;
+    display: flex;
+    justify-content: center;
+    padding: 0 12px;
+}
+
+/* Divider bar */
+.divider-bar {
+    height: 14px;
+    background: #7d6b5a;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+/* Red horizontal markers - only on specific columns */
+.divider-marker {
+    width: 48px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.divider-marker.has-dot::before {
+    content: '';
+    width: 12px;
+    height: 4px;
+    background: #8b1a10;
+    border-radius: 1px;
+}
+
+/* Lower section container */
+.lower-section-container {
+    background: #aeb2c3;
+    display: flex;
+    justify-content: center;
+    padding: 0 12px;
+}
+
+/* Single column/rod */
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 48px;
+}
+
+/* Rod - full height but BEHIND beads */
+.rod {
+    position: absolute;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(90deg, #cc8800, #ffdd00, #cc8800);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 0;
+    top: 0;
+}
+
+/* Upper column section */
+.upper-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 48px;
+    height: 60px;
+    justify-content: flex-start;
+    padding-top: 0;
+}
+
+/* Lower column section */
+.lower-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 48px;
+    height: 150px;
+    justify-content: flex-end;
+    padding-bottom: 0;
+}
+
+/* Diamond-shaped bead */
+.bead {
+    width: 46px;
+    height: 28px;
+    background: linear-gradient(145deg, #b83226 0%, #8b1a10 50%, #6b1008 100%);
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+.bead:hover {
+    filter: brightness(1.15);
+}
+
+/* Upper bead */
+.upper-column .bead {
+    margin: 0;
+}
+
+.upper-column .bead.active {
+    transform: translateY(34px);
+}
+
+/* Lower beads - just touching */
+.lower-column .bead {
+    margin: -1px 0;
+}
+
+.lower-column .bead:first-child {
+    margin-top: 0;
+}
+
+.lower-column .bead:last-child {
+    margin-bottom: 0;
+}
+
+.lower-column .bead.active {
+    transform: translateY(-45px);
+}
+
+/* ============ DISPLAY ============ */
+.display {
+    text-align: center;
+    padding: 15px;
+}
+
+.display .label {
+    color: #666;
+    font-size: 1.1rem;
+    margin-right: 10px;
+}
+
+#value {
+    font-weight: 600;
+    font-size: 1.8rem;
+    color: #1a1a2e;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 2px;
+}
+
+/* ============ MESSAGE BUTTON ============ */
+.message-btn {
+    position: fixed;
+    left: 20px;
+    bottom: 30px;
+    background: #e67e22;
+    color: #fff;
+    text-decoration: none;
+    padding: 15px 25px;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 15px rgba(230, 126, 34, 0.4);
+    transition: all 0.3s;
+    z-index: 999;
+}
+
+.message-btn:hover {
+    background: #d35400;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(230, 126, 34, 0.5);
+}
+
+/* ============ MOBILE SIDEBAR ============ */
+.mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.mobile-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    max-width: 80%;
+    height: 100%;
+    background: #fff;
+    z-index: 1999;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 5px 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-sidebar.active {
+    transform: translateX(0);
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 35px;
+    height: 35px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #666;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s;
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+.mobile-nav-menu {
+    list-style: none;
+    padding: 60px 20px 20px;
+    flex: 1;
+}
+
+.mobile-nav-menu li {
+    border-bottom: 1px solid #eee;
+}
+
+.mobile-nav-menu li a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5px;
+    text-decoration: none;
+    color: #333;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.mobile-nav-menu li a:hover {
+    color: #e67e22;
+}
+
+.mobile-nav-menu .arrow {
+    font-size: 0.7rem;
+    color: #999;
+}
+
+.mobile-nav-buttons {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-top: 1px solid #eee;
+}
+
+.mobile-nav-buttons .btn {
+    text-align: center;
+    padding: 12px 20px;
+}
+
+.mobile-nav-buttons .btn-outline {
+    border: 1px solid #ddd;
+    color: #333;
+}
+
+.mobile-nav-buttons .btn-primary {
+    background: #e67e22;
+    color: #fff;
+    border: none;
+}
+
+/* ============ RESPONSIVE DESIGN ============ */
+@media (max-width: 1024px) {
+    .nav-menu {
+        gap: 15px;
+    }
+
+    .nav-menu li a {
+        font-size: 0.85rem;
     }
 }
 
-
-// ========================================
-// BUILD ABACUS
-// ========================================
-
-function buildAbacus() {
-
-    const abacus =
-        document.getElementById('abacus');
-
-    abacus.innerHTML = '';
-
-
-    // Upper section
-    const upperContainer =
-        document.createElement('div');
-
-    upperContainer.className =
-        'upper-section-container';
-
-
-    // Divider
-    const dividerBar =
-        document.createElement('div');
-
-    dividerBar.className =
-        'divider-bar';
-
-
-    // Divider markers
-    for (let col = 0; col < columns; col++) {
-
-        const marker =
-            document.createElement('div');
-
-        marker.className =
-            'divider-marker';
-
-        const posFromRight =
-            columns - 1 - col;
-
-        if (
-            posFromRight === 3 ||
-            posFromRight === 6 ||
-            posFromRight === 9 ||
-            posFromRight === 12
-        ) {
-
-            marker.classList.add('has-dot');
-
-        }
-
-        dividerBar.appendChild(marker);
+@media (max-width: 900px) {
+    .mobile-menu-btn {
+        display: flex;
     }
 
-
-    // Lower section
-    const lowerContainer =
-        document.createElement('div');
-
-    lowerContainer.className =
-        'lower-section-container';
-
-
-    // ========================================
-    // CREATE EACH ROD
-    // ========================================
-
-    for (let col = 0; col < columns; col++) {
-
-        // Get color based on rod number
-        const color =
-            beadColors[col % beadColors.length];
-
-
-        // ====================================
-        // UPPER COLUMN
-        // ====================================
-
-        const upperColumn =
-            document.createElement('div');
-
-        upperColumn.className =
-            'upper-column';
-
-        upperColumn.dataset.col = col;
-
-
-        // Rod
-        const upperRod =
-            document.createElement('div');
-
-        upperRod.className = 'rod';
-
-        upperColumn.appendChild(upperRod);
-
-
-        // Upper bead
-        const upperBead =
-            document.createElement('div');
-
-        upperBead.className = 'bead';
-
-        // DIRECT COLOR
-        upperBead.style.background =
-            `linear-gradient(
-                145deg,
-                ${color},
-                ${color}
-            )`;
-
-        upperBead.dataset.col = col;
-
-        upperBead.dataset.type =
-            'upper';
-
-        upperBead.addEventListener(
-            'click',
-            handleBeadClick
-        );
-
-        upperColumn.appendChild(
-            upperBead
-        );
-
-        upperContainer.appendChild(
-            upperColumn
-        );
-
-
-        // ====================================
-        // LOWER COLUMN
-        // ====================================
-
-        const lowerColumn =
-            document.createElement('div');
-
-        lowerColumn.className =
-            'lower-column';
-
-        lowerColumn.dataset.col = col;
-
-
-        // Rod
-        const lowerRod =
-            document.createElement('div');
-
-        lowerRod.className = 'rod';
-
-        lowerColumn.appendChild(
-            lowerRod
-        );
-
-
-        // Four lower beads
-        for (let b = 0; b < 4; b++) {
-
-            const bead =
-                document.createElement('div');
-
-            bead.className = 'bead';
-
-            // DIRECT COLOR
-            bead.style.background =
-                `linear-gradient(
-                    145deg,
-                    ${color},
-                    ${color}
-                )`;
-
-            bead.dataset.col = col;
-
-            bead.dataset.type =
-                'lower';
-
-            bead.dataset.index = b;
-
-            bead.addEventListener(
-                'click',
-                handleBeadClick
-            );
-
-            lowerColumn.appendChild(
-                bead
-            );
-        }
-
-        lowerContainer.appendChild(
-            lowerColumn
-        );
+    .nav-menu {
+        display: none;
     }
 
-
-    // Add to abacus
-    abacus.appendChild(
-        upperContainer
-    );
-
-    abacus.appendChild(
-        dividerBar
-    );
-
-    abacus.appendChild(
-        lowerContainer
-    );
-
-
-    updateBeadPositions();
-
-    updateDisplay();
-}
-
-
-// ========================================
-// BEAD CLICK
-// ========================================
-
-function handleBeadClick(e) {
-
-    const col =
-        parseInt(e.target.dataset.col);
-
-    const type =
-        e.target.dataset.type;
-
-
-    // Upper bead
-    if (type === 'upper') {
-
-        state[col].upper =
-            state[col].upper === 0
-                ? 1
-                : 0;
-
+    .nav-buttons {
+        display: none;
     }
 
-    // Lower bead
-    else {
-
-        const index =
-            parseInt(
-                e.target.dataset.index
-            );
-
-        const isActive =
-            index < state[col].lower;
-
-
-        if (isActive) {
-
-            state[col].lower =
-                index;
-
-        }
-
-        else {
-
-            state[col].lower =
-                index + 1;
-        }
+    .hero h1 {
+        font-size: 2.2rem;
     }
 
-
-    updateBeadPositions();
-
-    updateDisplay();
+    .hero p {
+        font-size: 1rem;
+    }
 }
 
-
-// ========================================
-// UPDATE BEAD POSITIONS
-// ========================================
-
-function updateBeadPositions() {
-
-    // Upper beads
-    const upperColumns =
-        document.querySelectorAll(
-            '.upper-column'
-        );
-
-    upperColumns.forEach(
-        (colEl, colIndex) => {
-
-            const upperBead =
-                colEl.querySelector('.bead');
-
-            if (
-                state[colIndex].upper === 1
-            ) {
-
-                upperBead.classList.add(
-                    'active'
-                );
-
-            }
-
-            else {
-
-                upperBead.classList.remove(
-                    'active'
-                );
-            }
-        }
-    );
-
-
-    // Lower beads
-    const lowerColumns =
-        document.querySelectorAll(
-            '.lower-column'
-        );
-
-    lowerColumns.forEach(
-        (colEl, colIndex) => {
-
-            const lowerBeads =
-                colEl.querySelectorAll(
-                    '.bead'
-                );
-
-            lowerBeads.forEach(
-                (bead, beadIndex) => {
-
-                    if (
-                        beadIndex <
-                        state[colIndex].lower
-                    ) {
-
-                        bead.classList.add(
-                            'active'
-                        );
-
-                    }
-
-                    else {
-
-                        bead.classList.remove(
-                            'active'
-                        );
-                    }
-                }
-            );
-        }
-    );
-}
-
-
-// ========================================
-// UPDATE VALUE
-// ========================================
-
-function updateDisplay() {
-
-    let total = 0;
-
-
-    for (let i = 0; i < columns; i++) {
-
-        const placeValue =
-            Math.pow(
-                10,
-                columns - 1 - i
-            );
-
-        const columnValue =
-            (state[i].upper * 5) +
-            state[i].lower;
-
-        total +=
-            columnValue * placeValue;
+@media (max-width: 700px) {
+    .upper-column,
+    .lower-column {
+        width: 40px;
     }
 
-
-    document.getElementById(
-        'value'
-    ).textContent =
-        total.toLocaleString();
-}
-
-
-// ========================================
-// RESET
-// ========================================
-// Reset rods to 7
-// Clear all beads
-
-function clearAbacus() {
-
-    columns = 7;
-
-    document.getElementById(
-        'rodCount'
-    ).value = 7;
-
-    initState();
-
-    buildAbacus();
-}
-
-
-// ========================================
-// CLEAR RODS
-// ========================================
-// Keep current rods
-// Clear only beads
-
-function clearRods() {
-
-    initState();
-
-    updateBeadPositions();
-
-    updateDisplay();
-}
-
-
-// ========================================
-// ROD COUNT CHANGE
-// ========================================
-
-function handleRodCountChange() {
-
-    const input =
-        document.getElementById(
-            'rodCount'
-        );
-
-    let newCount =
-        parseInt(input.value);
-
-
-    if (
-        isNaN(newCount) ||
-        newCount < 1
-    ) {
-
-        newCount = 1;
+    .bead {
+        width: 38px;
+        height: 24px;
     }
 
-
-    if (newCount > 15) {
-
-        newCount = 15;
+    .abacus-frame {
+        padding: 8px;
     }
 
-
-    input.value = newCount;
-
-    columns = newCount;
-
-    initState();
-
-    buildAbacus();
-}
-
-
-// ========================================
-// MOBILE SIDEBAR
-// ========================================
-
-function openMobileSidebar() {
-
-    document
-        .getElementById('mobileSidebar')
-        .classList.add('active');
-
-    document
-        .getElementById('mobileOverlay')
-        .classList.add('active');
-
-    document.body.style.overflow =
-        'hidden';
-}
-
-
-function closeMobileSidebar() {
-
-    document
-        .getElementById('mobileSidebar')
-        .classList.remove('active');
-
-    document
-        .getElementById('mobileOverlay')
-        .classList.remove('active');
-
-    document.body.style.overflow = '';
-}
-
-
-// ========================================
-// INITIALIZE
-// ========================================
-
-document.addEventListener(
-    'DOMContentLoaded',
-    function () {
-
-        initState();
-
-        buildAbacus();
-
-
-        // Reset
-        document
-            .getElementById('clearBtn')
-            .addEventListener(
-                'click',
-                clearAbacus
-            );
-
-
-        // Clear Rods
-        const clearRodsBtn =
-            document.getElementById(
-                'clearRodsBtn'
-            );
-
-        if (clearRodsBtn) {
-
-            clearRodsBtn.addEventListener(
-                'click',
-                clearRods
-            );
-        }
-
-
-        // Rod count
-        document
-            .getElementById('rodCount')
-            .addEventListener(
-                'change',
-                handleRodCountChange
-            );
-
-
-        // Mobile menu
-        document
-            .getElementById('mobileMenuBtn')
-            .addEventListener(
-                'click',
-                openMobileSidebar
-            );
-
-
-        document
-            .getElementById('closeMenuBtn')
-            .addEventListener(
-                'click',
-                closeMobileSidebar
-            );
-
-
-        document
-            .getElementById('mobileOverlay')
-            .addEventListener(
-                'click',
-                closeMobileSidebar
-            );
-
+    .upper-column {
+        height: 50px;
     }
-);
+
+    .lower-column {
+        height: 125px;
+    }
+
+    .upper-column .bead.active {
+        transform: translateY(28px);
+    }
+
+    .lower-column .bead.active {
+        transform: translateY(-38px);
+    }
+
+    .message-btn {
+        left: 10px;
+        bottom: 20px;
+        padding: 12px 18px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .nav-container {
+        padding: 0 15px;
+    }
+
+    .upper-column,
+    .lower-column {
+        width: 34px;
+    }
+
+    .bead {
+        width: 32px;
+        height: 20px;
+    }
+
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero p {
+        font-size: 0.95rem;
+    }
+
+    .controls-row {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .upper-column {
+        height: 42px;
+    }
+
+    .lower-column {
+        height: 105px;
+    }
+
+    .upper-column .bead.active {
+        transform: translateY(24px);
+    }
+
+    .lower-column .bead.active {
+        transform: translateY(-32px);
+    }
+}
+/* Abacus bead colors */
+
+.bead.color-white {
+    background: linear-gradient(145deg, #ffffff, #eeeeee, #d5d5d5);
+}
+
+.bead.color-green {
+    background: linear-gradient(145deg, #25d878, #0eaa55, #087c3d);
+}
+
+.bead.color-pink {
+    background: linear-gradient(145deg, #ff9dcc, #ed65a8, #d83f89);
+}
+
+.bead.color-yellow {
+    background: linear-gradient(145deg, #fff04a, #f4ce00, #d5a900);
+}
+
+.bead.color-red {
+    background: linear-gradient(145deg, #f04438, #d5281d, #a9140e);
+}
+
+.bead.color-blue {
+    background: linear-gradient(145deg, #4ba3ff, #1976d2, #1058a5);
+}
