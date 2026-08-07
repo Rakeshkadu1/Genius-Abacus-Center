@@ -11,7 +11,10 @@ body {
     overflow-x: hidden;
 }
 
-/* ============ NAVIGATION ============ */
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
 .navbar {
     background: #fff;
     padding: 15px 0;
@@ -102,6 +105,7 @@ body {
 }
 
 /* Mobile Menu Button */
+
 .mobile-menu-btn {
     display: none;
     flex-direction: column;
@@ -120,7 +124,10 @@ body {
     transition: 0.3s;
 }
 
-/* ============ HERO SECTION ============ */
+/* =========================================================
+   HERO SECTION
+   ========================================================= */
+
 .hero {
     position: relative;
     padding: 60px 20px;
@@ -134,7 +141,12 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #abe587 0%, #c9f387 30%, #bbea8f 60%);
+    background: linear-gradient(
+        135deg,
+        #abe587 0%,
+        #c9f387 30%,
+        #bbea8f 60%
+    );
     z-index: -1;
 }
 
@@ -145,7 +157,12 @@ body {
     top: 0;
     width: 400px;
     height: 100%;
-    background: linear-gradient(180deg, #7ed957 0%, #a5e87a 50%, #c9f387 100%);
+    background: linear-gradient(
+        180deg,
+        #7ed957 0%,
+        #a5e87a 50%,
+        #c9f387 100%
+    );
     opacity: 0.5;
     transform: skewX(-15deg);
 }
@@ -170,11 +187,19 @@ body {
     line-height: 1.7;
 }
 
-/* ============ ABACUS SECTION ============ */
+/* =========================================================
+   ABACUS SECTION
+   ========================================================= */
+
 .abacus-section {
     padding: 40px 20px 80px;
     text-align: center;
-     background: linear-gradient(135deg, #b18287 0%, #d8e8bf 30%, #d1e5bf 60%);
+    background: linear-gradient(
+        135deg,
+        #b18287 0%,
+        #d8e8bf 30%,
+        #d1e5bf 60%
+    );
 }
 
 .controls {
@@ -225,7 +250,6 @@ body {
     transition: all 0.3s ease;
     font-family: inherit;
     font-weight: 500;
-    font-weight: 500;
 }
 
 .clear-btn:hover {
@@ -233,11 +257,15 @@ body {
     color: #fff;
 }
 
-/* ============ ABACUS FRAME ============ */
+/* =========================================================
+   ABACUS FRAME
+   ========================================================= */
+
 .abacus-wrapper {
     display: flex;
     justify-content: center;
     margin-bottom: 30px;
+    width: 100%;
 }
 
 .abacus-frame {
@@ -252,7 +280,8 @@ body {
     position: relative;
 }
 
-/* Upper section container */
+/* Upper section */
+
 .upper-section-container {
     background: #aeb2c3;
     display: flex;
@@ -260,7 +289,8 @@ body {
     padding: 0 12px;
 }
 
-/* Divider bar */
+/* Divider */
+
 .divider-bar {
     height: 14px;
     background: #7d6b5a;
@@ -269,7 +299,6 @@ body {
     justify-content: center;
 }
 
-/* Red horizontal markers - only on specific columns */
 .divider-marker {
     width: 48px;
     height: 100%;
@@ -287,7 +316,8 @@ body {
     border-radius: 1px;
 }
 
-/* Lower section container */
+/* Lower section */
+
 .lower-section-container {
     background: #aeb2c3;
     display: flex;
@@ -295,7 +325,10 @@ body {
     padding: 0 12px;
 }
 
-/* Single column/rod */
+/* =========================================================
+   COLUMNS / RODS
+   ========================================================= */
+
 .column {
     display: flex;
     flex-direction: column;
@@ -304,19 +337,22 @@ body {
     width: 48px;
 }
 
-/* Rod - full height but BEHIND beads */
 .rod {
     position: absolute;
     width: 3px;
     height: 100%;
-    background: linear-gradient(90deg, #cc8800, #ffdd00, #cc8800);
+    background: linear-gradient(
+        90deg,
+        #cc8800,
+        #ffdd00,
+        #cc8800
+    );
     left: 50%;
     transform: translateX(-50%);
     z-index: 0;
     top: 0;
 }
 
-/* Upper column section */
 .upper-column {
     display: flex;
     flex-direction: column;
@@ -328,7 +364,6 @@ body {
     padding-top: 0;
 }
 
-/* Lower column section */
 .lower-column {
     display: flex;
     flex-direction: column;
@@ -340,15 +375,28 @@ body {
     padding-bottom: 0;
 }
 
-/* Diamond-shaped bead */
+/* =========================================================
+   BEADS
+   ========================================================= */
+
 .bead {
     width: 46px;
     height: 28px;
-    background: linear-gradient(145deg, #b83226 0%, #8b1a10 50%, #6b1008 100%);
+    background: linear-gradient(
+        145deg,
+        #b83226 0%,
+        #8b1a10 50%,
+        #6b1008 100%
+    );
     cursor: pointer;
     position: relative;
     z-index: 2;
-    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    clip-path: polygon(
+        50% 0%,
+        100% 50%,
+        50% 100%,
+        0% 50%
+    );
     transition: transform 0.2s ease;
     flex-shrink: 0;
 }
@@ -357,7 +405,6 @@ body {
     filter: brightness(1.15);
 }
 
-/* Upper bead */
 .upper-column .bead {
     margin: 0;
 }
@@ -366,7 +413,6 @@ body {
     transform: translateY(34px);
 }
 
-/* Lower beads - just touching */
 .lower-column .bead {
     margin: -1px 0;
 }
@@ -383,7 +429,68 @@ body {
     transform: translateY(-45px);
 }
 
-/* ============ DISPLAY ============ */
+/* =========================================================
+   BEAD COLORS
+   ========================================================= */
+
+.bead.color-white {
+    background: linear-gradient(
+        145deg,
+        #ffffff,
+        #eeeeee,
+        #d5d5d5
+    );
+}
+
+.bead.color-green {
+    background: linear-gradient(
+        145deg,
+        #25d878,
+        #0eaa55,
+        #087c3d
+    );
+}
+
+.bead.color-pink {
+    background: linear-gradient(
+        145deg,
+        #ff9dcc,
+        #ed65a8,
+        #d83f89
+    );
+}
+
+.bead.color-yellow {
+    background: linear-gradient(
+        145deg,
+        #fff04a,
+        #f4ce00,
+        #d5a900
+    );
+}
+
+.bead.color-red {
+    background: linear-gradient(
+        145deg,
+        #f04438,
+        #d5281d,
+        #a9140e
+    );
+}
+
+.bead.color-blue {
+    background: linear-gradient(
+        145deg,
+        #4ba3ff,
+        #1976d2,
+        #1058a5
+    );
+}
+
+/* =========================================================
+   DISPLAY
+   ========================================================= */
+
 .display {
     text-align: center;
     padding: 15px;
@@ -403,7 +510,10 @@ body {
     letter-spacing: 2px;
 }
 
-/* ============ MESSAGE BUTTON ============ */
+/* =========================================================
+   MESSAGE BUTTON
+   ========================================================= */
+
 .message-btn {
     position: fixed;
     left: 20px;
@@ -426,7 +536,10 @@ body {
     box-shadow: 0 6px 20px rgba(230, 126, 34, 0.5);
 }
 
-/* ============ MOBILE SIDEBAR ============ */
+/* =========================================================
+   MOBILE SIDEBAR
+   ========================================================= */
+
 .mobile-overlay {
     position: fixed;
     top: 0;
@@ -541,8 +654,12 @@ body {
     border: none;
 }
 
-/* ============ RESPONSIVE DESIGN ============ */
+/* =========================================================
+   TABLET
+   ========================================================= */
+
 @media (max-width: 1024px) {
+
     .nav-menu {
         gap: 15px;
     }
@@ -552,7 +669,12 @@ body {
     }
 }
 
+/* =========================================================
+   MOBILE NAVIGATION
+   ========================================================= */
+
 @media (max-width: 900px) {
+
     .mobile-menu-btn {
         display: flex;
     }
@@ -574,7 +696,12 @@ body {
     }
 }
 
+/* =========================================================
+   MOBILE 700px
+   ========================================================= */
+
 @media (max-width: 700px) {
+
     .upper-column,
     .lower-column {
         width: 40px;
@@ -613,7 +740,12 @@ body {
     }
 }
 
+/* =========================================================
+   MOBILE 500px
+   ========================================================= */
+
 @media (max-width: 500px) {
+
     .nav-container {
         padding: 0 15px;
     }
@@ -657,76 +789,180 @@ body {
         transform: translateY(-32px);
     }
 }
-/* Abacus bead colors */
 
-.bead.color-white {
-    background: linear-gradient(145deg, #ffffff, #eeeeee, #d5d5d5);
-}
+/* =========================================================
+   ANDROID MOBILE
+   AUTO FIT 1 TO 17 RODS
+   ========================================================= */
 
-.bead.color-green {
-    background: linear-gradient(145deg, #25d878, #0eaa55, #087c3d);
-}
+@media screen and (max-width: 600px) {
 
-.bead.color-pink {
-    background: linear-gradient(145deg, #ff9dcc, #ed65a8, #d83f89);
-}
+    body {
+        width: 100%;
+        overflow-x: hidden;
+    }
 
-.bead.color-yellow {
-    background: linear-gradient(145deg, #fff04a, #f4ce00, #d5a900);
-}
+    .abacus-section {
+        width: 100%;
+        padding: 30px 0 70px;
+        overflow: hidden;
+    }
 
-.bead.color-red {
-    background: linear-gradient(145deg, #f04438, #d5281d, #a9140e);
-}
+    .abacus-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+    }
 
-.bead.color-blue {
-    background: linear-gradient(145deg, #4ba3ff, #1976d2, #1058a5);
-}
-/* Android / Mobile - fit all 17 rods */
-@media (max-width: 600px) {
+    /*
+       IMPORTANT:
+       Frame does NOT use width:100%.
+       It automatically fits the number of rods.
+    */
 
     .abacus-frame {
-        width: 100%;
+        display: inline-block;
+        width: auto;
+        max-width: calc(100vw - 10px);
+        padding: 5px;
+        margin: 0 auto;
+        box-sizing: border-box;
         overflow: hidden;
-        padding: 8px 2px;
     }
 
     .abacus {
-        width: 100%;
-        min-width: 0;
+        width: auto;
+        max-width: 100%;
+        box-sizing: border-box;
         overflow: hidden;
     }
 
     .upper-section-container,
-    .lower-section-container,
+    .lower-section-container {
+        display: flex;
+        justify-content: center;
+        padding: 0;
+        margin: 0;
+        width: auto;
+        box-sizing: border-box;
+    }
+
+    /*
+       17 rods maximum.
+       Each rod becomes small enough for Android.
+    */
+
+    .upper-column,
+    .lower-column {
+        width: 19px !important;
+        min-width: 19px !important;
+        max-width: 19px !important;
+        flex: 0 0 19px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-sizing: border-box;
+    }
+
     .divider-bar {
-        width: 100%;
-        gap: 0;
+        display: flex;
+        width: auto;
+        height: 9px;
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    .divider-marker {
+        width: 19px !important;
+        min-width: 19px !important;
+        max-width: 19px !important;
+        flex: 0 0 19px !important;
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    .rod {
+        width: 2px !important;
+    }
+
+    .bead {
+        width: 18px !important;
+        height: 15px !important;
+        max-width: 18px;
+        box-sizing: border-box;
+    }
+
+    .upper-column {
+        height: 45px !important;
+    }
+
+    .upper-column .bead.active {
+        transform: translateY(22px);
+    }
+
+    .lower-column {
+        height: 110px !important;
+    }
+
+    .lower-column .bead {
+        margin-top: -1px !important;
+        margin-bottom: -1px !important;
+    }
+
+    .lower-column .bead.active {
+        transform: translateY(-27px);
+    }
+
+    .controls {
+        margin-bottom: 20px;
+    }
+
+    .controls-row {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .message-btn {
+        left: 10px;
+        bottom: 20px;
+        padding: 12px 18px;
+        font-size: 0.8rem;
+    }
+}
+
+/* =========================================================
+   VERY SMALL ANDROID PHONES
+   ========================================================= */
+
+@media screen and (max-width: 360px) {
+
+    .abacus-frame {
+        padding: 4px;
+        max-width: calc(100vw - 6px);
     }
 
     .upper-column,
-    .lower-column,
+    .lower-column {
+        width: 17px !important;
+        min-width: 17px !important;
+        max-width: 17px !important;
+        flex-basis: 17px !important;
+    }
+
     .divider-marker {
-        flex: 1 1 0;
-        min-width: 0;
+        width: 17px !important;
+        min-width: 17px !important;
+        max-width: 17px !important;
+        flex-basis: 17px !important;
     }
 
     .bead {
-        width: clamp(18px, 5vw, 32px);
-        height: clamp(18px, 5vw, 32px);
-    }
-
-    .rod {
-        width: 3px;
-    }
-}
-@media (max-width: 600px) {
-    .bead {
-        width: 17px;
-        height: 17px;
-    }
-
-    .rod {
-        width: 2px;
+        width: 16px !important;
+        height: 14px !important;
+        max-width: 16px;
     }
 }
