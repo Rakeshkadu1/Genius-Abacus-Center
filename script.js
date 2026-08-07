@@ -167,9 +167,15 @@ function updateDisplay() {
 }
 
 function clearAbacus() {
+    // Reset rods/columns to default 7
+    columns = 7;
+    document.getElementById('rodCount').value = 7;
+
+    // Reset all bead states
     initState();
-    updateBeadPositions();
-    updateDisplay();
+
+    // Rebuild abacus with 7 columns
+    buildAbacus();
 }
 
 function handleRodCountChange() {
