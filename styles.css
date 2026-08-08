@@ -44,10 +44,7 @@ body {
 }
 
 .nav-menu {
-    display: flex;
-    list-style: none;
-    gap: 25px;
-    align-items: center;
+    display: none;
 }
 
 .nav-menu li a {
@@ -312,7 +309,7 @@ body {
     content: '';
     width: 12px;
     height: 4px;
-    background: #8b1a10;
+    background: #ffffff;
     border-radius: 1px;
 }
 
